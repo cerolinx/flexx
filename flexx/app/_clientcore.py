@@ -330,6 +330,7 @@ class JsSession:
         self.status = 2
 
         def reconnect():
+            window.console.info('Websocket reconnect called')
             self._ws = WebSocket(self.ws_url)
 
         def on_ws_open(evt):
