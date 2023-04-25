@@ -329,6 +329,9 @@ class JsSession:
         ws.binaryType = "arraybuffer"
         self.status = 2
 
+        def reconnect():
+            self._ws = WebSocket(self.ws_url)
+
         def on_ws_open(evt):
             window.console.info('Socket opened with session id ' + self.id)
             self.send_command('HI_FLEXX', self.id)
@@ -355,10 +358,15 @@ class JsSession:
                 window.document.body.textContent = msg
             else:
                 window.console.info(msg)
+            window.setTimeout(reconnect, 1000)
+
+
         def on_ws_error(self, evt):
             self._ws = None
             self.status = 0
             window.console.error('Socket error')
+
+
 
         # Connect
         ws.onopen = on_ws_open
