@@ -360,14 +360,13 @@ class JsSession:
                 window.document.body.textContent = msg
             else:
                 window.console.info(msg)
-            window.setTimeout(reconnect, 1000)
+            window.setTimeout(self.init_socket, 2000)
 
 
-        def on_ws_error(evt):
+        def on_ws_error(self, evt):
             self._ws = None
             self.status = 0
             window.console.error('Socket error')
-            window.setTimeout(reconnect, 1000)
 
 
 
