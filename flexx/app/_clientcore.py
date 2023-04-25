@@ -336,6 +336,7 @@ class JsSession:
         def on_ws_open(evt):
             window.console.info('Socket opened with session id ' + self.id)
             self.send_command('HI_FLEXX', self.id)
+
         def on_ws_message(evt):
             msg = evt.data  # bsdf-encoded command
             if not msg:
@@ -355,12 +356,14 @@ class JsSession:
             msg = 'Lost connection with server !! reload the page'
             if evt and evt.reason:
                 msg += ': %s (%i)' % (evt.reason, evt.code)
+                window.setTimeout(window.location.reload, 2000)
             if not window.flexx.is_notebook:
                 # todo: show modal or cooky-like dialog instead of killing whole page
                 window.document.body.textContent = msg
+                window.setTimeout(self.init_socket, 2000)
             else:
                 window.console.info(msg)
-            window.setTimeout(self.init_socket, 2000)
+                window.setTimeout(self.init_socket, 2000)
 
 
         def on_ws_error(self, evt):
