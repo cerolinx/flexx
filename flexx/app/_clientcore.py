@@ -348,6 +348,7 @@ class JsSession:
                 if len(self._pending_commands) == 0:
                     window.setTimeout(self._process_commands, 0)
                 self._pending_commands.push(msg)
+
         def on_ws_close(evt):
             self._ws = None
             self.status = 0
@@ -362,10 +363,11 @@ class JsSession:
             window.setTimeout(reconnect, 1000)
 
 
-        def on_ws_error(self, evt):
+        def on_ws_error(evt):
             self._ws = None
             self.status = 0
             window.console.error('Socket error')
+            window.setTimeout(reconnect, 1000)
 
 
 
