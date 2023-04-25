@@ -347,7 +347,7 @@ class JsSession:
         def on_ws_close(evt):
             self._ws = None
             self.status = 0
-            msg = 'Lost connection with server'
+            msg = 'Lost connection with server !! reload the page'
             if evt and evt.reason:
                 msg += ': %s (%i)' % (evt.reason, evt.code)
             if not window.flexx.is_notebook:
