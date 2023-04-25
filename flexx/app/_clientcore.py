@@ -356,7 +356,7 @@ class JsSession:
             msg = 'Lost connection with server !! reload the page'
             if evt and evt.reason:
                 msg += ': %s (%i)' % (evt.reason, evt.code)
-                window.setTimeout(window.location.reload, 2000)
+                window.setTimeout(window.location.reload(), 2000)
             if not window.flexx.is_notebook:
                 # todo: show modal or cooky-like dialog instead of killing whole page
                 window.document.body.textContent = msg
